@@ -38,3 +38,16 @@ Be accurate, concise, and user-friendly. This system should help identify securi
 - ❌ JWT tokens use `none` algorithm
 - ❌ No server-side input validation
 - ✅ HTTPS enforced
+
+## 📋 CLARIFICATION / DATA COLLECTION PROTOCOL
+
+If any agent cannot generate a required section of the report due to **missing or unclear information**, it should trigger the user clarification flow.
+
+All agents must refer to `SECURITY_QUESTIONNAIRE.md` to:
+
+- Identify the missing fields
+- Ask the corresponding questions to the user
+- Wait for answers and store them in memory (e.g., `user_inputs.json`)
+- Retry the original task once the missing data is collected
+
+If only part of the data is missing, agents should only ask for the relevant fields.
