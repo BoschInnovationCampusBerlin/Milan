@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app:cached  # Optional: prevents some syncing issues on macOS
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:8080"  # ✅ Correctly map to match Vite config
+    depends_on:
+      - backend
+    environment:
+      - NODE_ENV=development

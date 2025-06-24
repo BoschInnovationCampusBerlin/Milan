@@ -1,0 +1,6 @@
+# Don't copy local dependencies or lock file into the container
+node_modules
+package-lock.json
+
+# macOS system files (optional)
+.DS_Store
