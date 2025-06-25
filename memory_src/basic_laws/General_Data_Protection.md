@@ -1,7 +1,3 @@
-Of course. Here is the full text of the General Data Protection Regulation (EU) 2016/679, formatted in Markdown.
-
-***
-
 # REGULATION (EU) 2016/679 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL
 **of 27 April 2016**
 
