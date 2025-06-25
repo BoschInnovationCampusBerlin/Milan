@@ -1,6 +1,22 @@
 # Milan - Security Assessment Platform
 
+<<<<<<< HEAD
 A comprehensive security assessment platform that enables automated analysis and generation of security reports for digital products and applications.
+=======
+## Table of Contents
+- [Intro](#intro)
+- [Problem](#problem)
+- [Solving](#solving)
+- [Vision](#vision)
+- [Competitor Comparison Table](#competitor-comparision-table)
+- [Target Market](#target-market)
+- [System Architecture](#system-architecture)
+- [UX Scenario](#ux-scenario)
+- [UI Structure](#ui-structure)
+- [Sample Conversational Prompts](#sample-conversational-prompts)
+- [Business Model](#business-model)
+- [Division of Roles](#division-of-roles)
+>>>>>>> 9218fbf7 (docs: update system architecture in README.md)
 
 ## 🚀 Tech Stack
 
@@ -94,10 +110,89 @@ Milan/
 - Helps explain vulnerabilities and recommendations
 - Provides guidance on security best practices
 
+<<<<<<< HEAD
 ### Automated Analysis
 - Pattern recognition for common security issues
 - Tech stack identification
 - Risk assessment based on uploaded documentation
+=======
+## System Architecture
+
+```
+[ User ]
+   │
+   ├── 1. Chat input (questions, document requests, etc.)
+   └── 2. File upload (.md, .docx, etc. security documents)
+
+   ↓
+
+[ UI (Frontend) ]
+   │
+   ├── 1. Chat Interface
+   ├── 2. File Upload
+   └── 3. File system <Local Storage>
+
+   ↓
+
+[ AI Agent (Backend) ]
+
+ ┌─────────────────────────────────────────────┐
+ │               Orchestration Layer           │
+ -----------------------------------------------
+ │  ├─ Instruction (.md file)                  │
+ │  │                                          │
+ │  ├─ Memory (conversation context, user info)│
+ │  │                                          │
+ │  ├─ DB (.md format for cyber security)      │
+ │  │  ├─ Knowledge Files                      │
+ │  │  ├─ Task Files                           │
+ │  │  └─ Output Template                      │
+ │  │                                          │
+ │  └─ Model Board (Azure AI)                  │
+ │     ├─ 1. Search Stack                      │
+ │     │     ├─ Azure Cognitive Search         │
+ │     │     │   └─ Vector search (Embedding)  │
+ │     │     └─ Foundary                       │ 
+ │     │         ├─ Semantic Search            │
+ │     │         └─ Knowledge Injection        │
+ │     │                                       │
+ │     └─ 2. LLM                               │
+ │           └─ GPT-4.1 (Azure OpenAI)         │
+ └─────────────────────────────────────────────┘
+
+                      ↓
+
+ ┌─────────────────────────────────────────────┐
+ │                  Tool Layer                 │
+ -----------------------------------------------
+ │  ├─ File Parser (PDF/DOCX to text)          │
+ │  └─ PDF Generator (Markdown → PDF)          │
+ └─────────────────────────────────────────────┘
+
+   ↓
+
+[ Document Generation Engine ]
+   └─ Template-based `.md` → Final PDF output
+    └─ Contents
+      └─ Scope
+      └─ Summary
+      └─ Description
+      └─ Threat Model
+      └─ Risk Assessment
+      └─ Security evaluation
+      └─ Recommendations
+      └─ Etc.
+
+   ↓
+
+[ UI (Frontend) ]
+   │
+   ├── 1. PDF Output display on chat
+   └── 2. Option: Download file
+
+
+```
+>>>>>>> 9218fbf7 (docs: update system architecture in README.md)
 
 ## 🎯 Future Feature: Azure Agent Integration (MVP)
 
