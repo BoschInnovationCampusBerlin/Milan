@@ -42,18 +42,47 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ selectedFile }) => {
     setInputValue('');
     setIsTyping(true);
 
-    // Simulate bot response
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/chat/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: inputValue,
+          fileId: selectedFile
+        }),
+      });
+    
+      const data = await response.json();
+    
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: getBotResponse(inputValue, selectedFile),
+        content: data.reply || 'Sorry, I couldn’t get a response.',
         isBot: true,
         timestamp: new Date()
       };
-      
+    
       setMessages(prev => [...prev, botMessage]);
-      setIsTyping(false);
-    }, 1500);
+    } catch (err: unknown) {
+      console.error('[Assistant Error]', JSON.stringify(err, null, 2));
+    
+      res.status(500).json({
+        message: 'Failed to get assistant response',
+        detail: typeof err === 'object' && err !== null ? (err as any).message : String(err)
+      });
+    }
+    
+    // // Simulate bot response
+    // setTimeout(() => {
+    //   const botMessage: Message = {
+    //     id: (Date.now() + 1).toString(),
+    //     content: getBotResponse(inputValue, selectedFile),
+    //     isBot: true,
+    //     timestamp: new Date()
+    //   };
+      
+    //   setMessages(prev => [...prev, botMessage]);
+    //   setIsTyping(false);
+    // }, 1500);
   };
 
   const getBotResponse = (userInput: string, fileId: string | null): string => {

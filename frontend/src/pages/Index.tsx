@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FileUpload from '@/components/FileUpload';
 import OutputList from '@/components/OutputList';
 import FileExplorer from '@/components/FileExplorer';
@@ -13,6 +12,7 @@ const Index = () => {
     type: string;
     date: string;
     content: string;
+    url?: string;
   }>>([
     {
       id: '1',
@@ -30,12 +30,34 @@ const Index = () => {
     }
   ]);
 
+  useEffect(() => {
+    const fetchAzureFiles = async () => {
+      try {
+        const response = await fetch('/api/files'); // adjust if needed
+        const files = await response.json();
+        const formatted = files.map((file: any, index: number) => ({
+          id: `azure-${index}`,
+          name: file.name,
+          type: file.contentType || 'File',
+          date: file.lastModified || '',
+          content: '',
+          url: file.url,
+        }));
+        setReports(prev => [...prev, ...formatted]);
+      } catch (err) {
+        console.error('Error fetching Azure files:', err);
+      }
+    };
+
+    fetchAzureFiles();
+  }, []);
+
   const handleFileSelect = (fileId: string) => {
     setSelectedFile(fileId);
   };
 
   const handleNewReport = (report: any) => {
-    setReports([...reports, report]);
+    setReports(prev => [...prev, report]);
   };
 
   return (
