@@ -115,6 +115,49 @@ To become the AI security co-pilot that helps any company.
 
 ---
 
+## Scalability and Applicability
+
+### Scalability
+
+- **Modular AI Architecture:** Easily extendable with new features or AI models without disrupting the existing system.
+- **Adaptive Conversational Workflows:** Dynamically handles increasing complexity and diverse project requirements.
+- **Efficient Data Management:** Utilizes structured knowledge files and vector search for fast, context-aware responses.
+- **Cloud Integration:** Built on scalable Azure services to support growing numbers of users and expanding data loads.
+
+### Applicability
+
+- **Customizable Task Flows:** Tailors assessments to various system types, including SaaS, internal applications, and IoT devices.
+- **Flexible Report Templates:** Supports multiple security standards and certifications for broad compliance needs.
+- **User-Adaptive Interface:** Designed to serve both technical experts and non-technical users effectively.
+- **Continuous Risk Tracking:** Enables ongoing security monitoring and compliance updates for sustained protection.
+
+### Dynamic Context Updating
+
+- Continuously updates its understanding with the latest:
+  - Company-specific details and project changes
+  - Relevant external regulations and compliance standards
+  - Industry best practices and evolving threat landscapes
+
+- Enables flexible, personalized, and up-to-date assessments and recommendations.
+
+---
+
+This design ensures the platform can scale smoothly while remaining highly adaptable to a wide range of security assessment needs.
+
+## Agentic AI Implementation
+- **Autonomy and Goal Orientation**
+  The AI independently drives the assessment process—from initiating security scans and asking targeted questions to generating prioritized action plans—without requiring continuous human input.
+- **Adaptability and Learning**
+  By maintaining and continuously updating conversation context—including company details, project info, relevant regulations, and best practices—and incorporating user feedback, the AI refines its recommendations and adapts to diverse security scenarios.
+- **Complex Problem Solving**
+  The system breaks down multi-layered security challenges into manageable tasks, performs dynamic risk analysis, and synthesizes comprehensive reports with actionable steps, going beyond simple rule-based checks.
+- **Contextual Understanding and Proactivity**
+  Our AI tracks risk histories, recognizes changes over time, anticipates potential threats, and proactively reminds users to reassess or update their security posture regularly.
+- **Interaction Skills**
+  Through a conversational interface, the AI communicates clearly and effectively, guiding both technical and non-technical users, facilitating knowledge transfer, and providing continuous support tailored to the user’s expertise.
+
+---
+
 ## System Architecture
 
 ```
