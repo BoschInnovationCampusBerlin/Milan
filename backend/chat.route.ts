@@ -1,45 +1,47 @@
-import express, { Request, Response } from 'express';
-import dotenv from 'dotenv';
-import axios from 'axios';
+// // chat.route.ts
+// import express, { Request, Response } from 'express';
+// import { AIProjectClient } from '@azure/ai-projects';
+// import { DefaultAzureCredential } from '@azure/identity';
+// import dotenv from 'dotenv';
 
-dotenv.config();
-const router = express.Router();
+// dotenv.config();
+// const router = express.Router();
 
-router.post('/ask', async (req: Request, res: Response) => {
-  const { message } = req.body;
+// const project = new AIProjectClient(
+//   process.env.AZURE_AGENT_PROJECT_URL!,
+//   new DefaultAzureCredential()
+// );
 
-  try {
-    const response = await axios.post<{
-      choices: { message: { content: string } }[];
-    }>(
-      `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/${process.env.AZURE_DEPLOYMENT_NAME}/chat/completions?api-version=2024-03-01-preview`,
-      {
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a helpful assistant that explains security reports.'
-          },
-          {
-            role: 'user',
-            content: message
-          }
-        ],
-        temperature: 0.7
-      },
-      {
-        headers: {
-          'api-key': process.env.AZURE_OPENAI_API_KEY!,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
+// router.post('/ask', async (req: Request, res: Response) => {
+//   const { message } = req.body;
+//   console.log("📩 Received message:", message);
 
-    const reply = response.data.choices[0].message.content;
-    res.json({ reply });
-  } catch (err: unknown) {
-    console.error('[Assistant Error]', err);
-    res.status(500).json({ message: 'Assistant failed to respond.' });
-  }
-});
+//   try {
+//     const agent = await project.agents.getAgent(process.env.AZURE_AGENT_ID!);
+//     const thread = await project.agents.threads.create();
+//     await project.agents.messages.create(thread.id, 'user', message);
 
-export default router;
+//     let run = await project.agents.runs.create(thread.id, agent.id);
+//     while (run.status === 'queued' || run.status === 'in_progress') {
+//       console.log("⏳ Waiting for agent to respond...");
+//       await new Promise(resolve => setTimeout(resolve, 1000));
+//       run = await project.agents.runs.get(thread.id, run.id);
+//     }
+
+//     const messages = await project.agents.messages.list(thread.id, { order: 'asc' });
+//     for await (const m of messages) {
+//       const content = m.content.find(c => c.type === 'text' && 'text' in c);
+//       if (content) {
+//         console.log("🧠 Assistant replied:", content.text.value);
+//         return res.json({ reply: content.text.value });
+//       }
+//     }
+
+//     res.status(500).json({ message: 'No valid reply from Agent351' });
+//   } catch (error) {
+//     console.error('[Agent351 Error]', error);
+//     res.status(500).json({ message: 'Agent failed to respond' });
+//   }
+// });
+
+// export default router;

@@ -1,79 +1,46 @@
-import express, { Request, Response } from 'express';
-import multer from 'multer';
-import { BlobServiceClient, StorageSharedKeyCredential } from '@azure/storage-blob';
-import dotenv from 'dotenv';
+// import express, { Request, Response } from 'express';
+// import { AIProjectClient } from '@azure/ai-projects';
+// import { DefaultAzureCredential } from '@azure/identity';
+// import dotenv from 'dotenv';
 
-dotenv.config();
-const router = express.Router();
-const upload = multer({ storage: multer.memoryStorage() });
+// dotenv.config();
+// const router = express.Router();
 
-// Define extended type for multer file access
-interface MulterRequest extends Request {
-  file?: Express.Multer.File;
-}
+// const project = new AIProjectClient(
+//   process.env.AZURE_AGENT_PROJECT_URL!,
+//   new DefaultAzureCredential()
+// );
 
-router.post('/upload', upload.single('file'), async (req: MulterRequest, res: Response): Promise<void> => {
-  try {
-    if (!req.file) {
-      res.status(400).json({ message: 'No file uploaded' });
-      return;
-    }
+// router.post('/ask', async (req: Request, res: Response) => {
+//   const { message } = req.body;
 
-    const account = process.env.AZURE_STORAGE_ACCOUNT_NAME!;
-    const accountKey = process.env.AZURE_STORAGE_ACCOUNT_KEY!;
-    const containerName = process.env.AZURE_STORAGE_CONTAINER_NAME!;
+//   try {
+//     const agent = await project.agents.getAgent(process.env.AZURE_AGENT_ID!);
+//     const thread = await project.agents.threads.create();
+//     await project.agents.messages.create(thread.id, 'user', message);
 
-    const sharedKeyCredential = new StorageSharedKeyCredential(account, accountKey);
-    const blobServiceClient = new BlobServiceClient(
-      `https://${account}.blob.core.windows.net`,
-      sharedKeyCredential
-    );
+//     let run = await project.agents.runs.create(thread.id, agent.id);
 
-    const containerClient = blobServiceClient.getContainerClient(containerName);
-    const blobName = req.file.originalname;
-    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+//     while (run.status === 'queued' || run.status === 'in_progress') {
+//       await new Promise(resolve => setTimeout(resolve, 1000));
+//       run = await project.agents.runs.get(thread.id, run.id);
+//     }
 
-    await blockBlobClient.uploadData(req.file.buffer);
+//     const messages = await project.agents.messages.list(thread.id, { order: 'asc' });
 
-    res.json({ url: blockBlobClient.url, message: 'Upload successful' });
-  } catch (error) {
-    console.error('Upload error:', error);
-    res.status(500).json({ message: 'Upload failed' });
-  }
-});
+//     for await (const m of messages) {
+//       const content = m.content.find(c => c.type === 'text' && 'text' in c);
+//       if (content) {
+//         return res.json({ reply: content.text.value });
+//       }
+//     }
 
-router.get('/files', async (req: Request, res: Response) => {
-  try {
-    const account = process.env.AZURE_STORAGE_ACCOUNT_NAME!;
-    const accountKey = process.env.AZURE_STORAGE_ACCOUNT_KEY!;
-    const containerName = process.env.AZURE_STORAGE_CONTAINER_NAME!;
-
-    const sharedKeyCredential = new StorageSharedKeyCredential(account, accountKey);
-    const blobServiceClient = new BlobServiceClient(
-      `https://${account}.blob.core.windows.net`,
-      sharedKeyCredential
-    );
-
-    const containerClient = blobServiceClient.getContainerClient(containerName);
-    const blobs = [];
-
-    for await (const blob of containerClient.listBlobsFlat()) {
-      blobs.push({
-        name: blob.name,
-        url: `${containerClient.url}/${blob.name}`,
-        lastModified: blob.properties.lastModified,
-        contentType: blob.properties.contentType,
-      });
-    }
-
-    res.json(blobs);
-  } catch (error) {
-    console.error('Error listing files:', error);
-    res.status(500).json({ message: 'Failed to list files' });
-  }
-});
+//     res.status(500).json({ message: 'Agent351 returned no valid response.' });
+//   } catch (error) {
+//     console.error('[Agent351 Error]', error);
+//     res.status(500).json({ message: 'Assistant failed to respond.' });
+//   }
+// });
 
 
-
-
-export default router;
+// export default router;
