@@ -42,5 +42,38 @@ router.post('/upload', upload.single('file'), async (req: MulterRequest, res: Re
   }
 });
 
+router.get('/files', async (req: Request, res: Response) => {
+  try {
+    const account = process.env.AZURE_STORAGE_ACCOUNT_NAME!;
+    const accountKey = process.env.AZURE_STORAGE_ACCOUNT_KEY!;
+    const containerName = process.env.AZURE_STORAGE_CONTAINER_NAME!;
+
+    const sharedKeyCredential = new StorageSharedKeyCredential(account, accountKey);
+    const blobServiceClient = new BlobServiceClient(
+      `https://${account}.blob.core.windows.net`,
+      sharedKeyCredential
+    );
+
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    const blobs = [];
+
+    for await (const blob of containerClient.listBlobsFlat()) {
+      blobs.push({
+        name: blob.name,
+        url: `${containerClient.url}/${blob.name}`,
+        lastModified: blob.properties.lastModified,
+        contentType: blob.properties.contentType,
+      });
+    }
+
+    res.json(blobs);
+  } catch (error) {
+    console.error('Error listing files:', error);
+    res.status(500).json({ message: 'Failed to list files' });
+  }
+});
+
+
+
 
 export default router;
