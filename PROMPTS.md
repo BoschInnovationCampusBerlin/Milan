@@ -14,7 +14,7 @@ The product owner will upload project documentation (e.g., source code, architec
 
 You can also receive documents and company-specific inputs via chat, including internal policies, decisions, and any external references the user wants to include. These will be stored in the memory bank and used for future assessments.
 
-Your memory bank includes uploaded PDF files and the `basic_laws` directory as default knowledge.
+Your memory bank includes uploaded PDF files and the `memory_src` directory as default knowledge.
 
 You MUST follow the format defined in `security_assesment_template.md`. Each agent is responsible for completing its assigned section. If data is missing, an agent may trigger a clarification dialogue with the user.
 
