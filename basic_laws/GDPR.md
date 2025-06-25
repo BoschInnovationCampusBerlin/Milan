@@ -1,3 +1,15 @@
+# REGULATION (EU) 2016/679 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL
+**of 27 April 2016**
+
+**on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation)**
+
+*(Text with EEA relevance)*
+
+THE EUROPEAN PARLIAMENT AND THE COUNCIL OF THE EUROPEAN UNION,
+
+Having regard to the Treaty on the Functioning of the European Union, and in particular Article 16 thereof,
+
+Having regard to the proposal from the European Commission,
 
 After transmission of the draft legislative act to the national parliaments,
 
